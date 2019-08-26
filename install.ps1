@@ -81,7 +81,7 @@ Function Chocolatey
     $ete = $env:USERPROFILE + "\Desktop\EvtxToElk.py"
     "from evtxtoelk import EvtxToElk" > $ete
     'EvtxToElk.evtx_to_elk("Security.evtx","http://localhost:9200")' >> $ete
-    choco install yedx -y --force
+    choco install yed -y --force
     choco install ida-free -y --force
     choco install 7zip -y --force
     choco install adobereader -y --force
