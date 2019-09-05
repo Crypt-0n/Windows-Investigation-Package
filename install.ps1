@@ -65,6 +65,14 @@ Function DownloadC0-FF-EE
 {
     $C0FFEE_path = $env:USERPROFILE + "\Desktop\C0-FF-EE.zip"
     Start-BitsTransfer -Source https://github.com/Crypt-0n/C0-FF-EE/archive/master.zip -Destination $C0FFEE_path
+
+}
+
+Function DownloadKali
+{
+    $KALI_path = "c:\KaliLinux.AppxBundle"
+    Start-BitsTransfer -Source https://aka.ms/wsl-kali-linux -Destination $KALI_path
+    DISM /online /add-provisionedappxpackage /packagepath:"c:\KaliLinux.AppxBundle" /skiplicense
 }
 
 Function Chocolatey
