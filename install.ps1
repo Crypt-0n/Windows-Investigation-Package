@@ -100,6 +100,7 @@ Function Chocolatey
     choco install hashmyfiles -y --force
     choco install kitty -y --force
     choco install upx -y --force
+	choco install .\pkg\libreoffice.6.2.7.nupkg -y --force
 }
 
 
