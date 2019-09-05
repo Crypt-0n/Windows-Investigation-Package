@@ -12,6 +12,8 @@ Set-ExecutionPolicy Unrestricted
 Puis depuis cette console, executer le script **install.ps1**
 
 Liste des logiciels :
+* Elasticsearch
+* Kibana
 * Google Chrome
 * Firefox
 * Python3
