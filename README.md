@@ -35,3 +35,4 @@ Liste des logiciels :
 * kitty
 * UPX
 * LibreOffice
+* Kali Linux
