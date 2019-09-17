@@ -11,7 +11,40 @@ function Unzip
 
 Function ClearWindows
 {  
-    $AppsList = "Microsoft.BingFinance","9E2F88E3.Twitter","Flipboard.Flipboard","ShazamEntertainmentLtd.Shazam","king.com.CandyCrushSaga","king.com.CandyCrushSodaSaga","king.com.*","ClearChannelRadioDigital.iHeartRadio","Microsoft.BingHealthAndFitness","Microsoft.Getstarted","Microsoft.MicrosoftOfficeHub","Microsoft.MicrosoftSolitaireCollection","Microsoft.3DBuilder","Microsoft.SkypeApp","Microsoft.XboxGamingOverlay","Microsoft.YourPhone","Microsoft.BingWeather","Microsoft.Microsoft3DViewer","Microsoft.Wallet","Microsoft.WindowsCamera","Microsoft.Office.OneNote","Microsoft.WindowsAlarms","Microsoft.MixedReality.Portal","Microsoft.People","Microsoft.ScreenSketch","Microsoft.WindowsMaps","Microsoft.MicrosoftStickyNotes","Microsoft.Messaging","Microsoft.Print3D","Microsoft.WindowsStore","Microsoft.Messaging","Microsoft.WindowsSoundRecorder","Microsoft.StorePurchaseApp","microsoft.windowscommunicationsapps"
+    $AppsList = "Microsoft.BingFinance",
+	            "9E2F88E3.Twitter",
+				"Flipboard.Flipboard",
+				"ShazamEntertainmentLtd.Shazam",
+				"king.com.CandyCrushSaga",
+				"king.com.CandyCrushSodaSaga",
+				"king.com.*",
+				"ClearChannelRadioDigital.iHeartRadio",
+				"Microsoft.BingHealthAndFitness",
+				"Microsoft.Getstarted",
+				"Microsoft.MicrosoftOfficeHub",
+				"Microsoft.MicrosoftSolitaireCollection",
+				"Microsoft.3DBuilder",
+				"Microsoft.SkypeApp",
+				"Microsoft.XboxGamingOverlay",
+				"Microsoft.YourPhone",
+				"Microsoft.BingWeather",
+				"Microsoft.Microsoft3DViewer",
+				"Microsoft.Wallet",
+				"Microsoft.WindowsCamera",
+				"Microsoft.Office.OneNote",
+				"Microsoft.WindowsAlarms",
+				"Microsoft.MixedReality.Portal",
+				"Microsoft.People",
+				"Microsoft.ScreenSketch",
+				"Microsoft.WindowsMaps",
+				"Microsoft.MicrosoftStickyNotes",
+				"Microsoft.Messaging",
+				"Microsoft.Print3D",
+				"Microsoft.WindowsStore",
+				"Microsoft.Messaging",
+				"Microsoft.WindowsSoundRecorder",
+				"Microsoft.StorePurchaseApp",
+				"microsoft.windowscommunicationsapps"
     Get-AppXProvisionedPackage -online | ? { $AppsList -contains $_.DisplayName } | Remove-AppxProvisionedPackage –online
     $AppsList | % { Get-AppXPackage -Name $_ | Remove-AppxPackage }
 }
@@ -19,12 +52,6 @@ Function ClearWindows
 
 Function DisableCortana
 {  
-    #New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -Value 0 -PropertyType DWORD -Force | Out-Null
-
-    #if( [bool]([Security.Principal.WindowsIdentity]::GetCurrent()).Groups -notcontains "S-1-5-32-544") {
-    #    Start Powershell -ArgumentList "& '$MyInvocation.MyCommand.Path'" -Verb runas
-    #}
-
     $path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"    
     IF(!(Test-Path -Path $path)) { 
         New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows" -Name "Windows Search"
@@ -72,13 +99,13 @@ Function DownloadKali
 {
     $KALI_path = "c:\KaliLinux.AppxBundle"
     Start-BitsTransfer -Source https://aka.ms/wsl-kali-linux -Destination $KALI_path
-    DISM /online /add-provisionedappxpackage /packagepath:"c:\KaliLinux.AppxBundle" /skiplicense
+    DISM /online /add-provisionedappxpackage /packagepath:$KALI_path /skiplicense
 }
 
 Function Chocolatey
 {
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+    SET 'PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin'
 
     choco install googlechrome -y --force
     choco install ublockorigin-chrome -y --force
@@ -86,7 +113,8 @@ Function Chocolatey
     choco install python -y --force
     C:\Python37\python -m pip install --upgrade pip
     C:\Python37\python -m pip install evtxtoelk
-    $ete = $env:USERPROFILE + "\Desktop\EvtxToElk.py"
+    $ete = $env:USERPROFILE + '\Desktop\EvtxToElk.py'
+	writehost $ete
     "from evtxtoelk import EvtxToElk" > $ete
     'EvtxToElk.evtx_to_elk("Security.evtx","http://localhost:9200")' >> $ete
     choco install yed -y --force
@@ -96,8 +124,8 @@ Function Chocolatey
     choco install autoit -y --force
     choco install cmder -y --force
     choco install sysinternals -y --force
-    $Shortcuts = $Shell.CreateShortcut($env:USERPROFILE + "\Desktop\Sysinternals.lnk")
-    $Shortcuts.TargetPath = "C:\ProgramData\Chocolatey\lib\sysinternals\tools"
+    $Shortcuts = $Shell.CreateShortcut($env:USERPROFILE + '\Desktop\Sysinternals.lnk')
+    $Shortcuts.TargetPath = 'C:\ProgramData\Chocolatey\lib\sysinternals\tools'
     $Shortcuts.Save()
     choco install winscp -y --force
     choco install keepass -y --force
